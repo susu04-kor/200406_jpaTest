@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>상품등록</h2>
+	<form action="insert" method="post">
+		상품번호 : <input type="text" name="id"><br>
+		상품이름 : <input type="text" name="name"><br>
+		상품가격 : <input type="text" name="price"><br>
+		상품구분 : <select name="category.cid">	<!-- product 클래스랑 똑같이 설정해야 함 -->
+			<option th:each="c:${clist}" th:text="${c.type}" th:value="${c.cid}"></option> <!-- text는 보여지는 이름이 찍히는 것 --> <!-- value가 진짜 값 -->
+		</select>
+		<input type="submit" value="등록">
+	</form>
+</body>
+</html>
