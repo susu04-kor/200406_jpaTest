@@ -30,13 +30,15 @@ public class ProductController {
 		this.cdao = cdao;
 	}
 	
-	@GetMapping("/insert")
+//	@GetMapping("/insert")
+	@GetMapping("/admin/insert")
 	public String insertForm(Model model) {
 		model.addAttribute("clist", cdao.findAll());
 		return "insert";
 	}
 	
-	@PostMapping("/insert")
+//	@PostMapping("/insert")
+	@PostMapping("/admin/insert")
 	public String insertProduct(Product p) {
 		dao.save(p);
 		//return "insert";
@@ -51,7 +53,7 @@ public class ProductController {
 	
 	@RequestMapping("/list")
 	public void list(Model model, @RequestParam(value="cid", defaultValue="0") int cid) {//상태 유지를 위해 model를 변수로 갖기
-		System.out.println("카테고리 번호: " +cid);		
+		System.out.println("카테고리 번호: " +cid);					//int cid를 value="cid"에 넣어주고 그 값이 없으면 디폴트 = 0
 		if(cid != 0) {
 			model.addAttribute("list", cdao.getOne(cid).getProducts());
 		}else {
@@ -59,18 +61,24 @@ public class ProductController {
 		}
 	
 		model.addAttribute("title", "비트 쇼핑몰 상품목록");
-		model.addAttribute("list", dao.findAll());	//model에다가 addAttribute로 상태유지
+		model.addAttribute("clist", cdao.findAll());	//model에다가 addAttribute로 상태유지
 	}
 	
-	@GetMapping("/delete")
+//	@GetMapping("/delete")
+	@GetMapping("/admin/delete")
 	public String delete(int id) {
 		dao.deleteById(id);
 		return "redirect:/list";
 	}
 	
-	@GetMapping("/edit")
+//	@GetMapping("/edit")
+	@GetMapping("/admin/edit")
 	public void edit(int id, Model model) {
-		model.addAttribute("p", dao.getOne(id));	//상태유지
+		System.out.println("editForm call.....................");
+		System.out.println("id: "+id);
+		
+		System.out.println("상품정보 출력: " +dao.getOne(id));
+		model.addAttribute("p", dao.getOne(id));	//상태유지 
 		//dao.getOne(id) - 데이터를 하나만 줌( 상품 번호 )
 		//dao.findById(id) - 배열 형태로 반환함 - 이거 쓰면 안됨
 	}

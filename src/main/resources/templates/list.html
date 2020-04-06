@@ -7,11 +7,13 @@
 <body>
    <h2 th:text="${title}"></h2>
    <hr>
-   <form action="list" method="post">
-   <select name="cid">
-   	<option th:each="c:${clist}" th:text="${c.type}" th:value="${c.cid}"></option>
-   </select>
-   </form>
+   <form action="/list" method="post">
+		상품구분:
+		<select name="cid">
+				<option th:each="c : ${clist}" th:text="${c.type}" th:value="${c.cid}"></option>
+		</select>
+		<input type="submit" value="검색">
+	</form>
    <table border="1" width="80%">
       <thead>
          <tr>
@@ -27,8 +29,10 @@
             <td th:text="${p.name}"></td>
             <td th:text="${p.price}"></td>
             <td>
-               <a th:href="@{/edit(id=${p.id})}">수정</a>
-               <a th:href="@{/delete(id=${p.id})}">삭제</a>	<!-- "@{/서비스명(변수명=${파라미터명})}" -->
+<!--                <a th:href="@{/edit(id=${p.id})}">수정</a> -->
+<!--                <a th:href="@{/delete(id=${p.id})}">삭제</a>	"@{/서비스명(변수명=${파라미터명})}" -->
+               <a th:href="@{/admin/edit(id=${p.id})}">수정</a>
+               <a th:href="@{/admin/delete(id=${p.id})}">삭제</a>	<!-- "@{/서비스명(변수명=${파라미터명})}" -->
             </td>
          </tr>
       </tbody>
